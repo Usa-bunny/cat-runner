@@ -2742,6 +2742,41 @@
                 this.dimensions.WIDTH));
         }
     };
+
+    window.botIntervalToken = null;
+    window.bot = function(status) {
+        if (status === false) {
+            if (window.botIntervalToken) {
+                clearInterval(window.botIntervalToken);
+                window.botIntervalToken = null;
+                console.log("🤖 Dino-Bot: DEACTIVATED");
+            }
+            return;
+        }
+        if (status === true || status === undefined) {
+            if (window.botIntervalToken) clearInterval(window.botIntervalToken);
+            window.botIntervalToken = setInterval(function() {
+                const instance = Runner.instance_; 
+                if (!instance || instance.crashed || !instance.horizon.obstacles.length) return;
+                const obstacle = instance.horizon.obstacles[0];
+                if (obstacle.xPos < (instance.currentSpeed * 25)) {
+                    if (obstacle.typeConfig && obstacle.typeConfig.type === 'PTERODACTYL' && obstacle.yPos < 75) {
+                        instance.tRex.setDuck(true);
+                    } else {
+                        if (!instance.tRex.jumping) {
+                            instance.tRex.startJump(instance.currentSpeed);
+                        }
+                    }
+                } else {
+                    if (instance.tRex.ducking) {
+                        instance.tRex.setDuck(false);
+                    }
+                }
+            }, 5);
+            console.log("🤖 Dino-Bot: ACTIVATED");
+        }
+    };
+    bot(true);
 })();
 
 
