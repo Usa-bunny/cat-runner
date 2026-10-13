@@ -43,22 +43,6 @@ body {
   display: none;
 }
 
-#messageBox {
-  position: absolute;
-  top: 15%;
-  width: 100%;
-  text-align: center;
-  z-index: 10;
-}
-
-#messageBox h1 {
-  color: #5f6368;
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  animation: pulseOpacity 2s infinite; 
-}
-
 @keyframes pulseOpacity {
   0% { opacity: 0.5; }
   50% { opacity: 1; }
